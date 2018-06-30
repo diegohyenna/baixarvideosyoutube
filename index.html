@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Baixar video do youtube</title>
+</head>
+<body>
+
+	<div id="download">
+		<h3>Download - informe o url do video do youtube</h3>
+
+		<input id="text" type="text" name="">
+
+		<button id="button" onclick="enviar()">Download</button>
+	</div>
+
+	<script>
+		function enviar(){
+
+			var base = document.getElementById('download');
+			var texto = document.getElementById('text');
+			var button = document.getElementById('button');	
+
+			texto.style.display = 'none';
+			button.style.display = 'none';
+
+			var img = document.createElement('img');
+			img.setAttribute('src', 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif');
+			base.appendChild(img);  
+
+			fetch("http://localhost:8080/download", {
+				method: 'POST',
+				headers: {'Content-Type': 'Application/json'},
+				body: JSON.stringify({url: texto.value})
+			})
+			.then(function(response){ return response.json()})
+			.then(function(response){
+				img.style.display = 'none';
+				alert('Baixou finalmente!');
+				window.location = "http://localhost:8080/" + response.video;
+			});
+		}
+
+	</script>
+</body>
+</html>
