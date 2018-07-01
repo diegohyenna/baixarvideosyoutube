@@ -18,7 +18,7 @@ app.use(cors())
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')))
 
 app.post('/download', async (req, res) => {
-
+	console.log('entrou no downlaod')
 	try{
 		console.log('entrou no try')
 		const info = await getInfoVideo(req.body.url.replace('https://www.youtube.com/watch?v=', ''))
@@ -27,6 +27,7 @@ app.post('/download', async (req, res) => {
 			.pipe(fs.createWriteStream(`videos/${info.title}.mp4`))
 			.on('finish', () => res.status(200).json({video: `${info.title}.mp4`}))
 	}catch(err){
+		console.log('entrou no erro')
 		res.status(500).json(err)
 	}
 
