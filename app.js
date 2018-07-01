@@ -10,6 +10,8 @@ const getInfoVideo = promisify(ytdl.getInfo)
 
 const app = express()
 
+app.use(express.static(__dirname + '/'));
+
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'videos')))
@@ -30,8 +32,6 @@ app.post('/videos', (req, res) => {
 
 		const files = []
 
-		console.log(req.body)
-
 		fs.readdirSync(folder).forEach(file => {
 	  		files.push(file)
 		})
@@ -39,7 +39,7 @@ app.post('/videos', (req, res) => {
 		res.status(200).json(files)
 
 	}catch(err){
-		console.log('err')
+		console.log(err)
 		res.status(500).json(err)
 	}
 
