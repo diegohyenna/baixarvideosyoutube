@@ -8,6 +8,10 @@
 	<div id="download">
 		<h3>Download - Informe o url do video do Youtube</h3>
 
+		<div>
+			<a href="/videos">Ver videos já baixados</a>
+		</div>
+
 		<input id="text" type="text" name="">
 
 		<button id="button" onclick="enviar()">Download</button>
@@ -16,12 +20,15 @@
 	<script>
 		function enviar(){
 
-			var url = "https://baixarvideosyoutube.herokuapp.com/";
-			// var url = "http://localhost:8080/";
-
 			var base = document.getElementById('download');
 			var texto = document.getElementById('text');
 			var button = document.getElementById('button');	
+
+			if(texto.value == '')
+			{
+				alert("Não pode fazer download da url em branco!")
+				return
+			}
 
 			texto.style.display = 'none';
 			button.style.display = 'none';
@@ -29,8 +36,6 @@
 			var img = document.createElement('img');
 			img.setAttribute('src', 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif');
 			base.appendChild(img);  
-
-			// url += "/download"
 
 			fetch("/download", {
 				method: 'POST',
@@ -40,9 +45,11 @@
 			.then(function(response){ return response.json()})
 			.then(function(response){
 				img.style.display = 'none';
+				texto.style.display = 'inline';
+				button.style.display = 'inline';
 				alert('Baixou finalmente!');
-				window.location = url + response.video;
-			});
+				window.location = "/"+response.video
+			});		
 		}
 
 	</script>

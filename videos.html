@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Baixar Videos</title>
+</head>
+<body>
+
+	<h3>Lista de videos para baixar: </h3>
+
+	<ul id="list">		
+	</ul>
+
+	<script>		
+		fetch("/videos", {
+			method: 'POST',
+			headers: {'Content-Type': 'Application/json'},
+			mode: 'cors',
+			// body: JSON.stringify({test: 'abc'})
+		})
+		.then(function(response){
+			return response.json();
+		})
+		.then(function(response){						
+			response.forEach(file => {
+				if(file != "index.txt"){	
+					var ul = document.getElementById('list');
+				  	var li = document.createElement('li');
+				  	var a = document.createElement('a');
+
+				  	a.setAttribute('href', file);
+				  	a.innerHTML = file;
+
+				  	li.appendChild(a);
+				  	ul.appendChild(li);
+			  	}
+
+			});
+		});
+
+	</script>
+</body>
+</html>
