@@ -9,8 +9,15 @@
 	<div class="base">
 		<h1>Lista de videos para baixar: </h1>
 
-		<ul id="list">		
-		</ul>
+		<!-- <ul id="list">		
+		</ul> -->
+
+		<table id="list">
+			<tr>
+		    	<th>Videos</th>
+			    <th>Ações</th>			    
+			</tr>				
+		</table>
 	</div>
 
 	<script>		
@@ -26,19 +33,43 @@
 		.then(function(response){						
 			response.forEach(file => {
 				if(file != "index.txt"){	
-					var ul = document.getElementById('list');
-				  	var li = document.createElement('li');
-				  	var a = document.createElement('a');
-
-				  	a.setAttribute('href', file);
-				  	a.innerHTML = file;
-
-				  	li.appendChild(a);
-				  	ul.appendChild(li);
+					draw(file);
 			  	}
 
 			});
 		});
+
+		function draw(file)
+		{
+			// var ul = document.getElementById('list');
+		 //  	var li = document.createElement('li');
+		 //  	var a = document.createElement('a');
+
+		 //  	a.setAttribute('href', file);
+		 //  	a.innerHTML = file;
+
+		 //  	li.appendChild(a);
+		 //  	ul.appendChild(li);
+
+		 	var table = document.getElementById('list');
+		 	var tr = document.createElement('tr');
+		  	var td1 = document.createElement('td');
+		  	var td2 = document.createElement('td');
+		  	var a = document.createElement('a');
+
+			td1.innerHTML = file;
+
+		  	a.setAttribute('href', file);
+		  	a.setAttribute('class', 'btn btn-primary');
+		  	a.innerHTML = 'Ver';		  	
+
+		  	td2.appendChild(a);
+
+		  	tr.appendChild(td1);
+		  	tr.appendChild(td2);
+
+		  	table.appendChild(tr);
+		}
 
 	</script>
 </body>

@@ -7,6 +7,7 @@ body{
 	padding: 0;
 	border: none;
 	width: 100%;
+	color: #00B233;
 }
 
 .base {
@@ -67,4 +68,44 @@ body{
 
 .float-left {
 	float: left;
-}	
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 3px solid #603F7F;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    color: #603F7F;
+}
+
+td, th {
+    border: 3px solid #603F7F;
+    text-align: left;
+    padding: 8px;    
+}
+
+th {
+	padding: 20px 8px;
+	color: #603F7F;
+	text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+    /*background-color: #dddddd;*/
+    background-color: #603F7F;
+    color: white;
+}
+
+td .btn, th .btn {		
+	margin-bottom: 0;
+	padding: 5px;
+	display: block;
+	text-align: center;
+}
+
+tr:nth-child(even) td .btn-primary, tr:nth-child(even) th .btn-primary{
+	background-color: white;
+	color: #603F7F;
+}
