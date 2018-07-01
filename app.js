@@ -20,7 +20,7 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')))
 app.post('/download', async (req, res) => {
 
 	try{
-
+		console.log('entrou no try')
 		const info = await getInfoVideo(req.body.url.replace('https://www.youtube.com/watch?v=', ''))
 
 		ytdl(req.body.url)
