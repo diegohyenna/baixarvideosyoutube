@@ -9,14 +9,14 @@
 
 	<div id="baseDownload" class="base">
 		<h1>Download - Informe a url do video do Youtube</h1>
-
-		
+	
 		<a id="listVideos" class="btn btn-primary" href="/videos">Ver videos já baixados</a>
 	
-
 		<input class="float-left" id="youtubeUrl" type="text" name="">
 
 		<a class="btn btn-success float-right" id="buttonDownload" href="#" onclick="enviar()">Download</a>
+
+		<div id="baseFacebook"></div>
 	</div>
 
 	<script>
@@ -26,6 +26,7 @@
 			var ytUrl = document.getElementById('youtubeUrl');
 			var btnDownload = document.getElementById('buttonDownload');	
 			var btnList = document.getElementById('listVideos');
+			var baseFb = document.getElementById('baseFacebook'); 
 
 			if(ytUrl.value == '')
 			{
@@ -36,6 +37,7 @@
 			ytUrl.style.display = 'none';
 			btnDownload.style.display = 'none';
 			btnList.style.display = 'none';
+			baseFb.style.display = 'none';
 
 			var img = document.createElement('img');
 			img.setAttribute('src', 'images/Loading_icon.gif');
@@ -46,14 +48,34 @@
 				headers: {'Content-Type': 'Application/json'},
 				body: JSON.stringify({url: ytUrl.value})
 			})
-			.then(function(response){ return response.json()})
+			.then(function(response){return response.json()})
 			.then(function(response){
+				
 				img.style.display = 'none';
 				ytUrl.style.display = 'inline';
 				btnDownload.style.display = 'table';
-				btnList.style.display = 'table';
+				btnList.style.display = 'table';						
+				
 				alert('Baixou finalmente!');
-				window.location = "/"+response.video
+
+				if(response.type == 'youtube')
+					window.location = "/"+response.video
+				else if(response.type == 'facebook')
+				{
+					console.log(response.video)									
+					var a = document.createElement('a');
+
+					baseFb.innerHTML = '';
+
+					a.setAttribute('href', response.video);
+					a.setAttribute('class', 'btn btn-primary');
+					a.innerHTML = "Visualizar video facebook";
+
+					baseFb.appendChild(a);
+
+					baseFb.style.display = 'block';	
+										
+				}
 			});		
 		}
 
