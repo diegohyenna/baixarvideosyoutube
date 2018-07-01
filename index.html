@@ -16,6 +16,9 @@
 	<script>
 		function enviar(){
 
+			var url = "https://baixarvideosyoutube.herokuapp.com/";
+			// var url = "http://localhost:8080/";
+
 			var base = document.getElementById('download');
 			var texto = document.getElementById('text');
 			var button = document.getElementById('button');	
@@ -27,7 +30,7 @@
 			img.setAttribute('src', 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif');
 			base.appendChild(img);  
 
-			fetch("http://localhost:8080/download", {
+			fetch(url+"download", {
 				method: 'POST',
 				headers: {'Content-Type': 'Application/json'},
 				body: JSON.stringify({url: texto.value})
@@ -36,7 +39,7 @@
 			.then(function(response){
 				img.style.display = 'none';
 				alert('Baixou finalmente!');
-				window.location = "http://localhost:8080/" + response.video;
+				window.location = url + response.video;
 			});
 		}
 
