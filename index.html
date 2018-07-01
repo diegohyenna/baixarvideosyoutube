@@ -30,7 +30,9 @@
 			img.setAttribute('src', 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif');
 			base.appendChild(img);  
 
-			fetch("https://baixarvideosyoutube.herokuapp.com/download", {
+			// url += "/download"
+
+			fetch("/download", {
 				method: 'POST',
 				headers: {'Content-Type': 'Application/json'},
 				body: JSON.stringify({url: texto.value})
