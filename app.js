@@ -21,6 +21,7 @@ app.post('/download', async (req, res) => {
 
 	try{
 
+		//ytdl.getURLVideoID(req.body.url)
 		const info = await getInfoVideo(req.body.url.replace('https://www.youtube.com/watch?v=', ''))
 
 		ytdl(req.body.url)
