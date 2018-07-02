@@ -2,42 +2,59 @@
 <html>
 <head>
 	<title>Baixar video do youtube</title>
+	<link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
 
-	<div id="download">
-		<h3>Download - informe o url do video do youtube</h3>
+	<div id="baseDownload" class="base">
+		<h1>Download - Informe a url do video do Youtube</h1>
 
-		<input id="text" type="text" name="">
+		
+		<a id="listVideos" class="btn btn-primary" href="/videos">Ver videos já baixados</a>
+	
 
-		<button id="button" onclick="enviar()">Download</button>
+		<input class="float-left" id="youtubeUrl" type="text" name="">
+
+		<a class="btn btn-success float-right" id="buttonDownload" href="#" onclick="enviar()">Download</a>
 	</div>
 
 	<script>
 		function enviar(){
 
-			var base = document.getElementById('download');
-			var texto = document.getElementById('text');
-			var button = document.getElementById('button');	
+			var base = document.getElementById('baseDownload');
+			var ytUrl = document.getElementById('youtubeUrl');
+			var btnDownload = document.getElementById('buttonDownload');	
+			var btnList = document.getElementById('listVideos');
 
-			texto.style.display = 'none';
-			button.style.display = 'none';
+			if(ytUrl.value == '')
+			{
+				alert("Não pode fazer download da url em branco!")
+				return
+			}
+
+			ytUrl.style.display = 'none';
+			btnDownload.style.display = 'none';
+			btnList.style.display = 'none';
 
 			var img = document.createElement('img');
-			img.setAttribute('src', 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif');
+			img.setAttribute('src', 'images/Loading_icon.gif');
 			base.appendChild(img);  
 
-			fetch("http://localhost:8080/download", {
+			fetch("/download", {
 				method: 'POST',
 				headers: {'Content-Type': 'Application/json'},
-				body: JSON.stringify({url: texto.value})
+				body: JSON.stringify({url: ytUrl.value})
 			})
 			.then(function(response){ return response.json()})
 			.then(function(response){
 				img.style.display = 'none';
+				ytUrl.style.display = 'inline';
+				btnDownload.style.display = 'table';
+				btnList.style.display = 'table';
 				alert('Baixou finalmente!');
-				window.location = "http://localhost:8080/" + response.video;
-			});
+				window.location = "/"+response.video
+			});		
 		}
 
 	</script>
