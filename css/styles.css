@@ -109,3 +109,13 @@ tr:nth-child(even) td .btn-primary, tr:nth-child(even) th .btn-primary{
 	background-color: white;
 	color: #603F7F;
 }
+
+tr:nth-child(even) td .btn-primary:hover, tr:nth-child(even) th .btn-primary:hover{
+	background-color: #603F7F;
+	color: white;
+}
+
+td .btn-primary:hover, th .btn-primary:hover{
+	background-color: white;
+	color: #8A2BE2;
+}
